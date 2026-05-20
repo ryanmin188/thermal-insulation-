@@ -153,10 +153,10 @@ $$
 $$
 \tau_{44}
 =
-\text{meas}
-\{
-t\mid T(L,t;d_2)\ge44^\circ C
-\}
+\operatorname{meas}
+\left\{
+t \mid T(L,t;d_2)\ge 44^\circ C
+\right\}
 $$
 
 则有：
