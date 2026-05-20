@@ -21,7 +21,10 @@ $$
 定义归一化舒适度指数：
 
 $$
-C=C(d_2)=1-\sqrt{
+C=C(d_2)
+=
+1-
+\sqrt{
 \frac{
 d_2-d_{2,\min}
 }{
@@ -50,22 +53,22 @@ $$
 热阻指热量在物体中传输时，在热流路径上受到的阻碍程度，其单位为：
 
 - K/W
-- 或 ℃/W
+- 或 $^\circ C$/W
 
 热阻定义为：
 
 $$
-\gamma=\frac{d_n}{Ak_n}
+\gamma_n=\frac{d_n}{Ak_n}
 $$
 
 其中：
 
-- $\gamma$：热阻
+- $\gamma_n$：第 $n$ 层热阻
 - $d_n$：第 $n$ 层厚度
 - $k_n$：第 $n$ 层热导率
 - $A$：横截面积
 
-由于各层面积相同，令：
+由于各层横截面积相同，令：
 
 $$
 A=1
@@ -76,7 +79,8 @@ $$
 定义归一化隔热性能指数：
 
 $$
-R=R(d_2)=
+R=R(d_2)
+=
 \frac{
 \gamma_2-\gamma_{2,\min}
 }{
@@ -92,7 +96,7 @@ $$
 
 当 $d_2$ 越大时：
 
-- $\gamma$ 越大
+- $\gamma_2$ 越大
 - $R$ 越大
 - 隔热性能越强
 
@@ -100,7 +104,7 @@ $$
 
 ### （4）效用函数构建
 
-采用 Cobb-Douglas 效用函数，以体现舒适性与隔热性能之间的替代关系，同时满足边际效用递减特征。
+采用 Cobb–Douglas 效用函数，以体现舒适性与隔热性能之间的替代关系，同时满足边际效用递减特征。
 
 定义效用函数：
 
@@ -113,6 +117,8 @@ $$
 $$
 U\in[0,1]
 $$
+
+参数 $\alpha$ 表示舒适度偏好权重。
 
 ---
 
@@ -128,7 +134,7 @@ $$
 
 ## 3. 约束条件
 
-设：
+设系统总厚度为：
 
 $$
 L=\sum_{i=1}^{4}x_i
@@ -136,33 +142,37 @@ $$
 
 则约束条件包括：
 
-### （1）工作时段内皮肤外侧最高温度不超过 47℃
+---
+
+### （1）工作时段内皮肤外侧最高温度不超过 $47^\circ C$
 
 $$
-\max_{0\le t\le60\text{min}}
+\max_{0\le t\le 60\text{ min}}
 T(L,t;d_2)
-\le47^\circ C
+\le 47^\circ C
 $$
 
 ---
 
-### （2）超过 44℃ 的累计时间不超过 5min
+### （2）超过 $44^\circ C$ 的累计时间不超过 5 min
 
-记：
+定义超温累计时间：
 
 $$
 \tau_{44}
 =
 \operatorname{meas}
 \left\{
-t \mid T(L,t;d_2)\ge 44^\circ C
+t\in[0,3600]
+\mid
+T(L,t;d_2)\ge 44^\circ C
 \right\}
 $$
 
 则有：
 
 $$
-\tau_{44}\le5\text{min}
+\tau_{44}\le 300\text{ s}
 $$
 
 ---
@@ -170,7 +180,7 @@ $$
 ### （3）厚度范围约束
 
 $$
-0.6\text{mm}\le d_2\le25\text{mm}
+0.6\text{ mm}\le d_2\le 25\text{ mm}
 $$
 
 ---
@@ -182,15 +192,20 @@ $$
 - 皮肤外侧温度关于时间单调不减
 - 温度关于第二层厚度单调递减
 
-因此可利用二分法或黄金分割法求解满足安全条件的最小临界厚度。
+因此可利用：
 
-设：
+- 二分法
+- 黄金分割法
+
+求解满足安全条件的最小临界厚度。
+
+记：
 
 $$
 \widetilde d_{2,\min}
 $$
 
-为满足全部约束条件的最小临界厚度。
+为满足全部安全约束条件的最小临界厚度。
 
 ---
 
@@ -199,10 +214,12 @@ $$
 求解：
 
 $$
-\begin{cases}
-T(L,60\text{min};D_1)=47^\circ C\\
-0.6\text{mm}\le d_2\le25\text{mm}
-\end{cases}
+\left\{
+\begin{aligned}
+&T(L,60\text{ min};D_1)=47^\circ C\\
+&0.6\text{ mm}\le d_2\le 25\text{ mm}
+\end{aligned}
+\right.
 $$
 
 则：
@@ -218,10 +235,12 @@ $$
 求解：
 
 $$
-\begin{cases}
-T(L,55\text{min};D_2)=44^\circ C\\
-0.6\text{mm}\le d_2\le25\text{mm}
-\end{cases}
+\left\{
+\begin{aligned}
+&T(L,55\text{ min};D_2)=44^\circ C\\
+&0.6\text{ mm}\le d_2\le 25\text{ mm}
+\end{aligned}
+\right.
 $$
 
 则：
@@ -257,44 +276,46 @@ $$
 
 $$
 \widetilde d_{2,\min}
-\le d_2\le25\text{mm}
+\le d_2\le 25\text{ mm}
 $$
 
-综合模型如下：
+综合优化模型如下：
 
 $$
+\left\{
 \begin{aligned}
 &\max U\\
-&s.t.
-\quad
-\widetilde d_{2,\min}
-\le d_2\le25\text{mm}
+&s.t.\quad
+\widetilde d_{2,\min}\le d_2\le 25\text{ mm}
 \end{aligned}
+\right.
 $$
 
 其中：
 
 $$
-\begin{cases}
-C=
-1-\sqrt{
+\left\{
+\begin{aligned}
+&C=
+1-
+\sqrt{
 \dfrac{
 d_2-d_{2,\min}
 }{
 d_{2,\max}-d_{2,\min}
 }
-}\\
-\\
-R=
+}
+\\[1em]
+&R=
 \dfrac{
 \gamma_2-\gamma_{2,\min}
 }{
 \gamma_{2,\max}-\gamma_{2,\min}
 }
-\\
-\\
-U=C^\alpha R^{1-\alpha}
-\end{cases}
+\\[1em]
+&U=C^\alpha R^{1-\alpha}
+\end{aligned}
+\right.
 $$
 
 最终利用：
@@ -326,11 +347,12 @@ $$
 
 ### （1）舒适度指标
 
-定义：
+定义综合舒适度指标：
 
 $$
 C=
-1-\sqrt{
+1-
+\sqrt{
 \frac{
 (d_2+d_4)-(d_{2,\min}+d_{4,\min})
 }{
@@ -345,9 +367,7 @@ $$
 C\in[0,1]
 $$
 
-总厚度越小：
-
-- 舒适度越高
+总厚度越小，则舒适度越高。
 
 ---
 
@@ -380,7 +400,7 @@ $$
 
 ### （3）效用函数
 
-采用 Cobb-Douglas 效用函数：
+采用 Cobb–Douglas 效用函数：
 
 $$
 U=C^\alpha R^{1-\alpha}
@@ -398,20 +418,22 @@ $$
 
 ## 3. 约束条件
 
-### （1）工作时段内最高温度不超过 47℃
+---
+
+### （1）工作时段内最高温度不超过 $47^\circ C$
 
 $$
-\max_{0\le t\le30\text{min}}
+\max_{0\le t\le30\text{ min}}
 T(L,t;d_2,d_4)
 \le47^\circ C
 $$
 
 ---
 
-### （2）超过 44℃ 的累计时间不超过 5min
+### （2）超过 $44^\circ C$ 的累计时间不超过 5 min
 
 $$
-\tau_{44}\le5\text{min}
+\tau_{44}\le300\text{ s}
 $$
 
 ---
@@ -419,11 +441,11 @@ $$
 ### （3）厚度约束
 
 $$
-0.6\text{mm}\le d_2\le25\text{mm}
+0.6\text{ mm}\le d_2\le25\text{ mm}
 $$
 
 $$
-0.6\text{mm}\le d_4\le6.4\text{mm}
+0.6\text{ mm}\le d_4\le6.4\text{ mm}
 $$
 
 ---
@@ -433,40 +455,43 @@ $$
 综合模型如下：
 
 $$
+\left\{
 \begin{aligned}
 &\max U\\
 &s.t.
 \begin{cases}
-0.6\text{mm}\le d_2\le25\text{mm}\\
-0.6\text{mm}\le d_4\le6.4\text{mm}
+0.6\text{ mm}\le d_2\le25\text{ mm}\\
+0.6\text{ mm}\le d_4\le6.4\text{ mm}
 \end{cases}
 \end{aligned}
+\right.
 $$
 
 其中：
 
 $$
-\begin{cases}
-C=
-1-\sqrt{
+\left\{
+\begin{aligned}
+&C=
+1-
+\sqrt{
 \dfrac{
 (d_2+d_4)-(d_{2,\min}+d_{4,\min})
 }{
 (d_{2,\max}+d_{4,\max})-(d_{2,\min}+d_{4,\min})
 }
 }
-\\
-\\
-R=
+\\[1em]
+&R=
 \dfrac{
 (\gamma_2+\gamma_4)-(\gamma_{2,\min}+\gamma_{4,\min})
 }{
 (\gamma_{2,\max}+\gamma_{4,\max})-(\gamma_{2,\min}+\gamma_{4,\min})
 }
-\\
-\\
-U=C^\alpha R^{1-\alpha}
-\end{cases}
+\\[1em]
+&U=C^\alpha R^{1-\alpha}
+\end{aligned}
+\right.
 $$
 
 ---
@@ -481,4 +506,4 @@ SLSQP 本质属于梯度型约束优化算法，其核心思想为：
 - 利用拉格朗日函数与约束梯度信息不断修正搜索方向
 - 最终逐步逼近最优解
 
-由于本文目标函数与约束条件均连续可导，因此 SLSQP 能够有效利用梯度信息提高求解效率与收敛稳定性。
+由于本文目标函数与约束条件均连续可导，因此 SLSQP 能够有效利用梯度信息，提高求解效率与收敛稳定性。
